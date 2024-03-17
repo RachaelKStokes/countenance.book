@@ -1,35 +1,20 @@
-const Thought = require('../models/Thought');
+const router = require('express').Router();
+const {
+  getThoughts,
+  getSingleThought,
+  createThought,
+  updateThought,
+  deleteThought,
 
-module.exports = {
-  async getThoughts(req, res) {
-    try {
-      const thoughts = await Thought.find();
-      res.json(thoughts);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  },
-  async getSingleThought(req, res) {
-    try {
-      const thought = await Thought.findOne({ _id: req.params.thoughtId })
-        .select('-__v');
+} = require('../../controllers/thoughtController');
 
-      if (!thought) {
-        return res.status(404).json({ message: 'No thought with that ID' });
-      }
+router.route('/').get(getThoughts).post(createThought);
 
-      res.json(thought);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  },
-  // create a new user
-  async createThought(req, res) {
-    try {
-      const dbThoughtData = await Thought.create(req.body);
-      res.json(dbThoughtData);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  },
-};
+router
+  .route('/:thoughtId')
+  .get(getSingleThought)
+  .put(updateThought)
+  .delete(deleteThought);
+
+
+module.exports = router;
