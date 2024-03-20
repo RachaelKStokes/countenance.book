@@ -8,22 +8,22 @@ const userSchema = new Schema(
       type: String,
       unique: true,
       required: true,
-      trim: true
+      trim: true,
 
     },
     email: {
       type: String,
       required: true,
       unique: true,
-      match: [/.+\@.+\..+/]
+      match: [/.+\@.+\..+/],
     },
     thoughts: {
       type: Schema.Types.ObjectId,
-      ref: 'Thought'
+      ref: 'Thought',
     },
     friends: {
       type: Schema.Types.ObjectId,
-      ref: 'User'
+      ref: 'User',
     }
   },
   {
