@@ -1,7 +1,8 @@
 const {User, Thought} = require('../models');
+const User = require('../models/User');
 
 module.exports = {
-  async getAllUsers(req, res) {
+  async getUsers(req, res) {
     try {
       const users = await User.find()
         .populate({path: "thoughts", select: "-__v"})
