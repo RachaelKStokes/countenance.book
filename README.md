@@ -1,5 +1,5 @@
 # countenance.book
-a social media program where a user can add or delete other users as friends and share thoughts.  Created using mongodb as a way to demonstrate using routes, nosql, and hhtpie.
+a social media program where a user can add or delete other users as friends and share thoughts.  Created using mongodb as a way to demonstrate using routes, nosql, and httpie.
 
 ## Video Walkthrough
 
