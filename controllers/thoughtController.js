@@ -1,5 +1,5 @@
-const {Thought} = require('../models/Thought');
-const {User} = require('../models/User');
+const {Thought, User} = require('../models');
+
 
 //get all thoughts
 const thoughtController = {
@@ -9,6 +9,7 @@ const thoughtController = {
       res.json(thoughts);
     } catch (err) {
       res.status(500).json(err);
+      console.log(err);
     }
   },
 
@@ -30,13 +31,13 @@ const thoughtController = {
   // create a new thought
   async createThought(req, res) {
     try {
-      const thought = await thought.create(req.body);
+      const dbThoughtData = await Thought.create(req.body);
       const user = await User.findOneAndUpdate(
         {_id: req.body.userId},
-        {$addToSet: {thoughts: thought._id}},
+        {$addToSet: {thoughts: Thought._id}},
         {new: true}
       );
-      return res.status(200).json({ thought, user });
+      return res.status(200).json(dbThoughtData);
     } catch (err) {
       console.log(err);
       return res.status(500).json(err);

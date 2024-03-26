@@ -1,19 +1,21 @@
 const Thought = require('../models/Thought');
 const User = require('../models/User');
 
-
+//issue here?
   const userController = {
   async getUsers(req, res) {
     try {
       const users = await User.find()
-        .populate({path: "thoughts", select: "-__v"})
-        .populate({path: "friends", select: "-__v"});
+       // .then((user) => res.json(users))
       res.json(users);
     } catch (err) {
       res.status(500).json(err);
+      console.log(err);
     }
   },
-  async getSingleUser(req, res) {
+
+  //get one user
+  async getUser(req, res) {
     try {
       const user = await User.findOne({ _id: req.params.userId })
         .populate({path: "thoughts", select:"-__v"})
@@ -28,12 +30,14 @@ const User = require('../models/User');
       res.status(500).json(err);
     }
   },
+  
   // create a new user
   async createUser(req, res) {
     try {
       const dbUserData = await User.create(req.body);
       res.json(dbUserData);
     } catch (err) {
+      console.log(err)
       res.status(500).json(err);
     }
   },
